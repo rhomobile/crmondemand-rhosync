@@ -28,17 +28,17 @@
         <tbody>
           <tr>
             <td class="left_align"><a href="sources-generic_oraclecrm_adapter_rb.html">sources/generic_oraclecrm_adapter.rb</a></td>
-            <td class='right_align'><tt>231</tt></td>
-            <td class='right_align'><tt>174</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>95.24%</tt></div>
-          <div class="percent_graph">
-            <div class="covered" style="width:95px"></div>
-            <div class="uncovered" style="width:5px"></div>
-          </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>93.68%</tt></div>
+            <td class='right_align'><tt>233</tt></td>
+            <td class='right_align'><tt>176</tt></td>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>94.42%</tt></div>
           <div class="percent_graph">
             <div class="covered" style="width:94px"></div>
             <div class="uncovered" style="width:6px"></div>
+          </div></td>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>92.61%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:93px"></div>
+            <div class="uncovered" style="width:7px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -459,991 +459,1003 @@
           
           
           <tr class="marked">
-            <td><pre><a name="line68">68</a>         http.headers[&quot;Cookie&quot;] = @session_cookie</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line69">69</a>         soap.body = soap_body</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line70">70</a>       end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line71">71</a>       # server stateless session id is returned with the response</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line72">72</a>       @session_cookie = response.http.headers[&quot;Set-Cookie&quot;]</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line73">73</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line74">74</a>       query_results = Nori.parse(response.http.body)[&quot;SOAP_ENV:Envelope&quot;][&quot;SOAP_ENV:Body&quot;][&quot;ns:#{querypage_prefix}_Output&quot;][&quot;ListOf#{@oraclecrm_object}&quot;]</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line75">75</a>       fetch_more = query_results['@lastpage'] == 'true' ? false : true</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line76">76</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line77">77</a>       query_results.each do |objname,records|</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line78">78</a>         if objname == &quot;#{@oraclecrm_object}&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line79">79</a>           # in case of single record - it comes as a Hash</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line80">80</a>           # otherwise it is an array of record Hashes</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line81">81</a>           if records.is_a?Hash</pre></td>
+            <td><pre><a name="line68">68</a>         if @session_cookie != nil</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line82">82</a>             records = [records]</pre></td>
+            <td><pre><a name="line69">69</a>           http.headers[&quot;Cookie&quot;] = @session_cookie</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line83">83</a>           end</pre></td>
+            <td><pre><a name="line70">70</a>         end</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line84">84</a>           records.each do |oracle_rec|</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line85">85</a>             id_field = oracle_rec[&quot;Id&quot;]</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line86">86</a>             converted_record = {}</pre></td>
+            <td><pre><a name="line71">71</a>         soap.body = soap_body</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line87">87</a>             # grab only the allowed fields </pre></td>
+            <td><pre><a name="line72">72</a>       end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line88">88</a>             # and map oracle field names into RhoSync field names</pre></td>
+            <td><pre><a name="line73">73</a>       # server stateless session id is returned with the response</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line89">89</a>             @fields.each do |f|</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line90">90</a>               converted_record[f[&quot;name&quot;]] = oracle_rec[f[&quot;oracle_name&quot;]]</pre></td>
+            <td><pre><a name="line74">74</a>       @session_cookie = response.http.headers[&quot;Set-Cookie&quot;]</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line91">91</a>             end</pre></td>
+            <td><pre><a name="line75">75</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line92">92</a>             @result[&quot;#{id_field.to_s}&quot;] = converted_record</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line93">93</a>           end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line94">94</a>         end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line95">95</a>       end</pre></td>
+            <td><pre><a name="line76">76</a>       query_results = Nori.parse(response.http.body)[&quot;SOAP_ENV:Envelope&quot;][&quot;SOAP_ENV:Body&quot;][&quot;ns:#{querypage_prefix}_Output&quot;][&quot;ListOf#{@oraclecrm_object}&quot;]</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line96">96</a>       start_row = @result.size</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line97">97</a>     end while fetch_more</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line98">98</a>     @result</pre></td>
+            <td><pre><a name="line77">77</a>       fetch_more = query_results['@lastpage'] == 'true' ? false : true</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line99">99</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line100">100</a>  </pre></td>
+            <td><pre><a name="line78">78</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line101">101</a>   def sync</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line102">102</a>     # Manipulate @result before it is saved, or save it </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line103">103</a>     # yourself using the Rhosync::Store interface.</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line104">104</a>     # By default, super is called below which simply saves @result</pre></td>
+            <td><pre><a name="line79">79</a>       query_results.each do |objname,records|</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line105">105</a>     super</pre></td>
+            <td><pre><a name="line80">80</a>         if objname == &quot;#{@oraclecrm_object}&quot;</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line106">106</a>   end</pre></td>
+            <td><pre><a name="line81">81</a>           # in case of single record - it comes as a Hash</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line107">107</a>  </pre></td>
+            <td><pre><a name="line82">82</a>           # otherwise it is an array of record Hashes</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line108">108</a>   def create(create_hash,blob=nil)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line109">109</a>     # TODO: Create a new record in your backend data source</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line110">110</a>     # If your rhodes rhom object contains image/binary data </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line111">111</a>     # (has the image_uri attribute), then a blob will be provided</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line112">112</a>     created_object_id = nil</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line113">113</a>     insert_prefix = &quot;#{@oraclecrm_object}&quot; + 'Insert'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line114">114</a>     soapaction = '&quot;document/' + @soap_client.wsdl.namespace + ':'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line115">115</a>     soapaction += insert_prefix + '&quot;'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line116">116</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line117">117</a>     request_fields = {}</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line118">118</a>     @fields.each do |f|</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line119">119</a>       field_value = create_hash[f['name']]</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line120">120</a>       if field_value != nil</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line121">121</a>         request_fields[f['oracle_name']] = field_value</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line122">122</a>       end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line123">123</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line124">124</a>     request_body = {</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line125">125</a>       &quot;#{@oraclecrm_object}&quot; =&gt; request_fields </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line126">126</a>     };</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line127">127</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line128">128</a>     soap_body = {</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line129">129</a>       &quot;ListOf#{@oraclecrm_object}&quot; =&gt; request_body</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line130">130</a>     };</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line131">131</a>  </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line132">132</a>     begin </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line133">133</a>       response = @soap_client.request(:wsdl, insert_prefix + '_Input') do</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line134">134</a>         http.headers[&quot;SOAPAction&quot;] = soapaction</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line135">135</a>         http.headers[&quot;Cookie&quot;] = @session_cookie</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line136">136</a>         soap.body = soap_body</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line137">137</a>       end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line138">138</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line139">139</a>       # get the create object id</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line140">140</a>       oracle_rec = Nori.parse(response.http.body)[&quot;SOAP_ENV:Envelope&quot;][&quot;SOAP_ENV:Body&quot;][&quot;ns:#{insert_prefix}_Output&quot;][&quot;ListOf#{@oraclecrm_object}&quot;]</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line141">141</a>       created_object_id = oracle_rec[&quot;#{@oraclecrm_object}&quot;][&quot;Id&quot;]</pre></td>
+            <td><pre><a name="line83">83</a>           if records.is_a?Hash</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line142">142</a>     rescue Savon::Error =&gt; e</pre></td>
+            <td><pre><a name="line84">84</a>             records = [records]</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line143">143</a>       raise e</pre></td>
+            <td><pre><a name="line85">85</a>           end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line86">86</a>           records.each do |oracle_rec|</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line87">87</a>             id_field = oracle_rec[&quot;Id&quot;]</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line88">88</a>             converted_record = {}</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line89">89</a>             # grab only the allowed fields </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line90">90</a>             # and map oracle field names into RhoSync field names</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line91">91</a>             @fields.each do |f|</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line92">92</a>               converted_record[f[&quot;name&quot;]] = oracle_rec[f[&quot;oracle_name&quot;]]</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line93">93</a>             end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line94">94</a>             @result[&quot;#{id_field.to_s}&quot;] = converted_record</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line95">95</a>           end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line96">96</a>         end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line97">97</a>       end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line98">98</a>       start_row = @result.size</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line99">99</a>     end while fetch_more</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line100">100</a>     @result</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line101">101</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line102">102</a>  </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line103">103</a>   def sync</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line104">104</a>     # Manipulate @result before it is saved, or save it </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line105">105</a>     # yourself using the Rhosync::Store interface.</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line106">106</a>     # By default, super is called below which simply saves @result</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line107">107</a>     super</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line108">108</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line109">109</a>  </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line110">110</a>   def create(create_hash,blob=nil)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line111">111</a>     # TODO: Create a new record in your backend data source</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line112">112</a>     # If your rhodes rhom object contains image/binary data </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line113">113</a>     # (has the image_uri attribute), then a blob will be provided</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line114">114</a>     created_object_id = nil</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line115">115</a>     insert_prefix = &quot;#{@oraclecrm_object}&quot; + 'Insert'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line116">116</a>     soapaction = '&quot;document/' + @soap_client.wsdl.namespace + ':'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line117">117</a>     soapaction += insert_prefix + '&quot;'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line118">118</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line119">119</a>     request_fields = {}</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line120">120</a>     @fields.each do |f|</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line121">121</a>       field_value = create_hash[f['name']]</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line122">122</a>       if field_value != nil</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line123">123</a>         request_fields[f['oracle_name']] = field_value</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line124">124</a>       end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line125">125</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line126">126</a>     request_body = {</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line127">127</a>       &quot;#{@oraclecrm_object}&quot; =&gt; request_fields </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line128">128</a>     };</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line129">129</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line130">130</a>     soap_body = {</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line131">131</a>       &quot;ListOf#{@oraclecrm_object}&quot; =&gt; request_body</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line132">132</a>     };</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line133">133</a>  </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line134">134</a>     begin </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line135">135</a>       response = @soap_client.request(:wsdl, insert_prefix + '_Input') do</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line136">136</a>         http.headers[&quot;SOAPAction&quot;] = soapaction</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line137">137</a>         http.headers[&quot;Cookie&quot;] = @session_cookie</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line138">138</a>         soap.body = soap_body</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line139">139</a>       end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line140">140</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line141">141</a>       # get the create object id</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line142">142</a>       oracle_rec = Nori.parse(response.http.body)[&quot;SOAP_ENV:Envelope&quot;][&quot;SOAP_ENV:Body&quot;][&quot;ns:#{insert_prefix}_Output&quot;][&quot;ListOf#{@oraclecrm_object}&quot;]</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line143">143</a>       created_object_id = oracle_rec[&quot;#{@oraclecrm_object}&quot;][&quot;Id&quot;]</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line144">144</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line145">145</a>     # server stateless session id is returned with the response</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line146">146</a>     @session_cookie = response.http.headers[&quot;Set-Cookie&quot;]</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line147">147</a>     </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line148">148</a>     # return new object ids</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line149">149</a>     created_object_id</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line150">150</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line151">151</a>  </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line152">152</a>   def update(update_hash)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line153">153</a>     updated_object_id = nil</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line154">154</a>     update_prefix = &quot;#{@oraclecrm_object}&quot; + 'Update'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line155">155</a>     soapaction = '&quot;document/' + @soap_client.wsdl.namespace + ':'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line156">156</a>     soapaction += update_prefix + '&quot;'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line157">157</a>     request_fields = {}</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line158">158</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line159">159</a>     @fields.each do |f|</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line160">160</a>       field_value = update_hash[f['name']]</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line161">161</a>       if field_value != nil</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line162">162</a>         request_fields[f['oracle_name']] = field_value</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line163">163</a>       end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line164">164</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line165">165</a>     request_body = {</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line166">166</a>       &quot;#{@oraclecrm_object}&quot; =&gt; request_fields </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line167">167</a>     };</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line168">168</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line169">169</a>     soap_body = {</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line170">170</a>       &quot;ListOf#{@oraclecrm_object}&quot; =&gt; request_body</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line171">171</a>     };</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line172">172</a>  </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line173">173</a>     begin </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line174">174</a>       response = @soap_client.request(:wsdl, update_prefix + '_Input') do</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line175">175</a>         http.headers[&quot;SOAPAction&quot;] = soapaction</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line176">176</a>         http.headers[&quot;Cookie&quot;] = @session_cookie</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line177">177</a>         soap.body = soap_body</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line178">178</a>       end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line179">179</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line180">180</a>       updated_object_id = update_hash['id']</pre></td>
+            <td><pre><a name="line144">144</a>     rescue Savon::Error =&gt; e</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line181">181</a>     rescue Savon::Error =&gt; e</pre></td>
+            <td><pre><a name="line145">145</a>       raise e</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line182">182</a>       raise e</pre></td>
+            <td><pre><a name="line146">146</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line147">147</a>     # server stateless session id is returned with the response</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line148">148</a>     @session_cookie = response.http.headers[&quot;Set-Cookie&quot;]</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line149">149</a>     </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line150">150</a>     # return new object ids</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line151">151</a>     created_object_id</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line152">152</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line153">153</a>  </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line154">154</a>   def update(update_hash)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line155">155</a>     updated_object_id = nil</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line156">156</a>     update_prefix = &quot;#{@oraclecrm_object}&quot; + 'Update'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line157">157</a>     soapaction = '&quot;document/' + @soap_client.wsdl.namespace + ':'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line158">158</a>     soapaction += update_prefix + '&quot;'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line159">159</a>     request_fields = {}</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line160">160</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line161">161</a>     @fields.each do |f|</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line162">162</a>       field_value = update_hash[f['name']]</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line163">163</a>       if field_value != nil</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line164">164</a>         request_fields[f['oracle_name']] = field_value</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line165">165</a>       end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line166">166</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line167">167</a>     request_body = {</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line168">168</a>       &quot;#{@oraclecrm_object}&quot; =&gt; request_fields </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line169">169</a>     };</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line170">170</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line171">171</a>     soap_body = {</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line172">172</a>       &quot;ListOf#{@oraclecrm_object}&quot; =&gt; request_body</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line173">173</a>     };</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line174">174</a>  </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line175">175</a>     begin </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line176">176</a>       response = @soap_client.request(:wsdl, update_prefix + '_Input') do</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line177">177</a>         http.headers[&quot;SOAPAction&quot;] = soapaction</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line178">178</a>         http.headers[&quot;Cookie&quot;] = @session_cookie</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line179">179</a>         soap.body = soap_body</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line180">180</a>       end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line181">181</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line182">182</a>       updated_object_id = update_hash['id']</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line183">183</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line184">184</a>     # server stateless session id is returned with the response</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line185">185</a>     @session_cookie = response.http.headers[&quot;Set-Cookie&quot;]</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line186">186</a>     </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line187">187</a>     updated_object_id</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line188">188</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line189">189</a>  </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line190">190</a>   def delete(delete_hash)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line191">191</a>     deleted_object_id = nil</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line192">192</a>     delete_prefix = &quot;#{@oraclecrm_object}&quot; + 'Delete'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line193">193</a>     soapaction = '&quot;document/' + @soap_client.wsdl.namespace + ':'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line194">194</a>     soapaction += delete_prefix + '&quot;'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line195">195</a>     request_fields = {}</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line196">196</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line197">197</a>     @fields.each do |f|</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line198">198</a>       field_value = delete_hash[f['name']]</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line199">199</a>       if field_value != nil</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line200">200</a>         request_fields[f['oracle_name']] = field_value</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line201">201</a>       end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line202">202</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line203">203</a>     request_body = {</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line204">204</a>       &quot;#{@oraclecrm_object}&quot; =&gt; request_fields </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line205">205</a>     };</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line206">206</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line207">207</a>     soap_body = {</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line208">208</a>       &quot;ListOf#{@oraclecrm_object}&quot; =&gt; request_body</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line209">209</a>     };</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line210">210</a>  </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line211">211</a>     begin </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line212">212</a>       response = @soap_client.request(:wsdl, delete_prefix + '_Input') do</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line213">213</a>         http.headers[&quot;SOAPAction&quot;] = soapaction</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line214">214</a>         http.headers[&quot;Cookie&quot;] = @session_cookie</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line215">215</a>         soap.body = soap_body</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line216">216</a>       end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line217">217</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line218">218</a>       deleted_object_id = delete_hash['id']</pre></td>
+            <td><pre><a name="line183">183</a>     rescue Savon::Error =&gt; e</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line219">219</a>     rescue Savon::Error =&gt; e</pre></td>
+            <td><pre><a name="line184">184</a>       raise e</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line220">220</a>       raise e</pre></td>
+            <td><pre><a name="line185">185</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line186">186</a>     # server stateless session id is returned with the response</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line187">187</a>     @session_cookie = response.http.headers[&quot;Set-Cookie&quot;]</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line188">188</a>     </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line189">189</a>     updated_object_id</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line190">190</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line191">191</a>  </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line192">192</a>   def delete(delete_hash)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line193">193</a>     deleted_object_id = nil</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line194">194</a>     delete_prefix = &quot;#{@oraclecrm_object}&quot; + 'Delete'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line195">195</a>     soapaction = '&quot;document/' + @soap_client.wsdl.namespace + ':'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line196">196</a>     soapaction += delete_prefix + '&quot;'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line197">197</a>     request_fields = {}</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line198">198</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line199">199</a>     @fields.each do |f|</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line200">200</a>       field_value = delete_hash[f['name']]</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line201">201</a>       if field_value != nil</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line202">202</a>         request_fields[f['oracle_name']] = field_value</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line203">203</a>       end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line204">204</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line205">205</a>     request_body = {</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line206">206</a>       &quot;#{@oraclecrm_object}&quot; =&gt; request_fields </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line207">207</a>     };</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line208">208</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line209">209</a>     soap_body = {</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line210">210</a>       &quot;ListOf#{@oraclecrm_object}&quot; =&gt; request_body</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line211">211</a>     };</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line212">212</a>  </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line213">213</a>     begin </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line214">214</a>       response = @soap_client.request(:wsdl, delete_prefix + '_Input') do</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line215">215</a>         http.headers[&quot;SOAPAction&quot;] = soapaction</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line216">216</a>         http.headers[&quot;Cookie&quot;] = @session_cookie</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line217">217</a>         soap.body = soap_body</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line218">218</a>       end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line219">219</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line220">220</a>       deleted_object_id = delete_hash['id']</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line221">221</a>     end</pre></td>
+            <td><pre><a name="line221">221</a>     rescue Savon::Error =&gt; e</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line222">222</a>       raise e</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line223">223</a>     end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line222">222</a>     # server stateless session id is returned with the response</pre></td>
+            <td><pre><a name="line224">224</a>     # server stateless session id is returned with the response</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line223">223</a>     @session_cookie = response.http.headers[&quot;Set-Cookie&quot;]</pre></td>
+            <td><pre><a name="line225">225</a>     @session_cookie = response.http.headers[&quot;Set-Cookie&quot;]</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line224">224</a>     </pre></td>
+            <td><pre><a name="line226">226</a>     </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line225">225</a>     deleted_object_id</pre></td>
+            <td><pre><a name="line227">227</a>     deleted_object_id</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line226">226</a>   end</pre></td>
+            <td><pre><a name="line228">228</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line227">227</a>  </pre></td>
+            <td><pre><a name="line229">229</a>  </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line228">228</a>   def logoff</pre></td>
+            <td><pre><a name="line230">230</a>   def logoff</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line229">229</a>     # logoff if necessary</pre></td>
+            <td><pre><a name="line231">231</a>     # logoff if necessary</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line230">230</a>   end</pre></td>
+            <td><pre><a name="line232">232</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line231">231</a> end</pre></td>
+            <td><pre><a name="line233">233</a> end</pre></td>
           </tr>
         
       </tbody>
     </table>
 
-    <p>Generated on Fri May 27 16:36:04 -0700 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri May 27 16:58:25 -0700 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

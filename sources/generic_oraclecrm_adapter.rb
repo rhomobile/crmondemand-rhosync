@@ -65,7 +65,9 @@ class Generic_OracleCRM_Adapter < SourceAdapter
  
       response = @soap_client.request(:wsdl, querypage_prefix + '_Input') do
         http.headers["SOAPAction"] = soapaction
-        http.headers["Cookie"] = @session_cookie
+        if @session_cookie != nil
+          http.headers["Cookie"] = @session_cookie
+        end
         soap.body = soap_body
       end
       # server stateless session id is returned with the response
