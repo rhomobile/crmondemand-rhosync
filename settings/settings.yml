@@ -9,7 +9,7 @@
   :licensefile: settings/license.key
   :oraclecrm_service_url: https://secure-ausomxkwa.crmondemand.com/Services/Integration
   :username: example_user
-  :password: sword
+  :password: sword1
 :production: 
   :syncserver: http://localhost:9292/application/
   :redis: localhost:6379
