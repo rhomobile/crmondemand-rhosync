@@ -134,7 +134,9 @@ class Generic_OracleCRM_Adapter < SourceAdapter
     begin 
       response = @soap_client.request(:wsdl, insert_prefix + '_Input') do
         http.headers["SOAPAction"] = soapaction
-        http.headers["Cookie"] = @session_cookie
+        if @session_cookie != nil
+          http.headers["Cookie"] = @session_cookie
+        end
         soap.body = soap_body
       end
 
@@ -175,7 +177,9 @@ class Generic_OracleCRM_Adapter < SourceAdapter
     begin 
       response = @soap_client.request(:wsdl, update_prefix + '_Input') do
         http.headers["SOAPAction"] = soapaction
-        http.headers["Cookie"] = @session_cookie
+        if @session_cookie != nil
+          http.headers["Cookie"] = @session_cookie
+        end
         soap.body = soap_body
       end
 
@@ -213,7 +217,9 @@ class Generic_OracleCRM_Adapter < SourceAdapter
     begin 
       response = @soap_client.request(:wsdl, delete_prefix + '_Input') do
         http.headers["SOAPAction"] = soapaction
-        http.headers["Cookie"] = @session_cookie
+        if @session_cookie != nil
+          http.headers["Cookie"] = @session_cookie
+        end
         soap.body = soap_body
       end
 
