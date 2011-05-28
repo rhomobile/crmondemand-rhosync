@@ -1,1 +1,3 @@
 settings/settings.yml
+coverage
+*.rdb
