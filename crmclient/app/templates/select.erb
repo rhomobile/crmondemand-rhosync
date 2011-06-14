@@ -1,0 +1,17 @@
+<div <%= "class=\"#{@doc_def['div_class']}\"" if @doc_def['div_class']%> >
+  <label <%= "class=\"#{@doc_def['label_class']}\"" if @doc_def['label_class']%> ><%=@doc_def['label']%></label>
+<select
+  <%= "name=\"#{@doc_def['name']}\"" if @doc_def['name'] %>
+  <%= "size=\"#{@doc_def['size']}\"" if @doc_def['size'] %>
+  <%= "class=\"#{@doc_def['class']}\"" if @doc_def['class'] %>
+  <%= "multiple=\"yes\"" if @doc_def['allow_multi'] %>
+  <%= "disabled" if not @doc_def['editable'].nil? and not @doc_def['editable'] %>
+
+  >
+  <% @doc_def['values'].each do |value| %>
+  <option <%= "selected=\"yes\"" if @doc_def['value'] == value  %>><%= value %></option>
+  <% end %>
+</select>
+</div>
+
+

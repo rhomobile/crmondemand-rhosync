@@ -1,0 +1,16 @@
+<div class="pageTitle">
+  <h1><%= @doc_def["title"] %></h1>
+</div>
+
+<div class="toolbar">
+  <div class="leftItem backButton">
+	<a href="<%= @doc_def["object"] %>/index">Back</a>
+  </div>
+  <div class="rightItem regularButton">
+	<a class="button" href="<%=@doc_def["object"]%>/{<%=@doc_def["id"]%>}/edit%>">Edit</a>
+  </div>
+</div>
+
+<div class="content">
+  <%@content.each_line do |line|%><%= "  " + line%><%end%>
+</div>

@@ -1,0 +1,53 @@
+<div class="pageTitle">
+  <h1>Crmclient</h1>
+</div>
+
+<div class="toolbar">
+  <% if SyncEngine::logged_in > 0 %>
+      <div class="leftItem blueButton">
+        <a href="<%= url_for :controller => :Settings, :action => :do_sync %>">Sync</a>
+      </div>
+      <div class="rightItem regularButton">
+        <a href="<%= url_for :controller => :Settings, :action => :logout %>">Logout</a>
+      </div>
+  <% else %>
+      <div class="rightItem regularButton">
+        <a href="<%= url_for :controller => :Settings, :action => :login %>">Login</a>
+      </div>
+  <% end %>
+</div>
+
+<div class="content">
+  <ul>
+    <li>
+  		<a href="Account">
+    		<span class="title">Accounts</span>
+    		<span class="disclosure_indicator"></span>
+  		</a>
+	</li>
+	<li>
+		<a href="Contact">
+			<span class="title">Contacts</span>
+			<span class="disclosure_indicator"></span>
+		</a>
+	</li>
+	<li>
+		<a href="Lead">
+			<span class="title">Leads</span>
+			<span class="disclosure_indicator"></span>
+		</a>
+	</li>
+	<li>
+		<a href="Opportunity">
+			<span class="title">Opportunities</span>
+			<span class="disclosure_indicator"></span>
+		</a>
+	</li>
+	<li>
+		<a href="Activity">
+			<span class="title">Activities</span>
+			<span class="disclosure_indicator"></span>
+		</a>
+	</li>
+  </ul>
+</div>

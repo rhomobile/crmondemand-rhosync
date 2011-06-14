@@ -1,0 +1,24 @@
+<div id="pageTitle">
+		<h1>Edit <%= @opportunity.Opportunity_Id%></h1>
+</div>
+
+<div id="toolbar">
+    <%= link_to "Back", :action => :show, :id => @opportunity.object %>
+    <%= link_to "Delete", :action => :delete, :id => @opportunity.object %>
+</div>
+
+
+<div id="content">
+    <form method="POST" action="<%= url_for :action => :update %>">
+    	<input type="hidden" name="id" value="<%= @opportunity.object %>"/>
+            <table>
+        		
+                    <tr>
+            			<td class="itemLabel">Opportunity id: </td>
+              			<td class="itemValue"><input type="text" name="opportunity[Opportunity_Id]" value="<%= @opportunity.Opportunity_Id %>"/></td>
+          		    </tr>
+        		
+            </table>
+            <input type="submit" class="standardButton" value="Update" />
+    </form>
+</div>

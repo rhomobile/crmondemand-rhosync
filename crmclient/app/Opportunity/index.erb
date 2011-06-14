@@ -1,0 +1,26 @@
+<div class="pageTitle">
+  <h1>Opportunities</h1>
+</div>
+
+<div class="toolbar">
+  <div class="leftItem regularButton">
+    <a href="<%= Rho::RhoConfig.start_path %>">Home</a>
+  </div>
+  <div class="rightItem regularButton">
+    <a class="button" href="<%= url_for :action => :new %>">New</a>
+  </div>
+</div>
+
+<div class="content">
+  <ul>
+    <% @opportunities.each do |opportunity| %>
+    
+        <li>
+          <a href="<%= url_for :action => :show, :id => opportunity.object %>">
+            <span class="title"><%= opportunity.OpportunityName %></span><span class="disclosure_indicator"></span>
+          </a>
+        </li>
+    
+    <% end %>
+  </ul>
+</div>

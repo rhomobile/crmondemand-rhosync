@@ -1,0 +1,25 @@
+<div class="pageTitle">
+  <h1>New <%= @contact.title %></h1>
+</div>
+
+<div class="toolbar">
+  <div class="leftItem backButton">
+    <a class="cancel" href="<%= url_for :action => :index %>">Cancel</a>
+  </div>
+</div>
+
+<div class="content">
+  <form method="POST" action="<%= url_for :action => :create %>">
+    <input type="hidden" name="id" value="<%= @contact.object %>"/>
+    <ul>
+      
+          <li>
+            <label for="contact[Id]" class="fieldLabel">Contact</label>
+            <input type="text" name="contact[Id]" <%=
+            placeholder("Id") %> />
+          </li>
+      
+    </ul>
+    <input type="submit" class="standardButton" value="Create"/>
+  </form>
+</div>

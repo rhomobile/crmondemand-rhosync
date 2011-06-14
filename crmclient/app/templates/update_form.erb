@@ -1,0 +1,22 @@
+<div class="pageTitle">
+  <h1><%= @doc_def["title"] %></h1>
+</div>
+
+<div class="toolbar">
+  <div class="leftItem backButton">
+	<a class="cancel" href="<%= @doc_def["object"] %>/index">Cancel</a>
+  </div>
+  <div class="rightItem regularButton">
+	<a class="button" href="<%=@doc_def["object"]%>/{<%=@doc_def["id"]%>}/delete%>">Delete</a>
+  </div>
+</div>
+
+<div class="content">
+  <form method="POST" action="<%= @doc_def['object'] %>/update">
+    <input type="hidden" name="id" value="<%=@doc_def["id"]%>"/>
+    
+	<%@content.each_line do |line|%><%= "  " + line%><%end%>
+
+    <input type="submit" class="standardButton" value="Update"/>
+  </form>
+</div>

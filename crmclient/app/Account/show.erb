@@ -1,0 +1,27 @@
+<div class="pageTitle">
+  <h1><%= @account.id %></h1>
+</div>
+
+<div class="toolbar">
+  <div class="leftItem backButton">
+    <a href="<%= url_for :action => :index %>">Back</a>
+  </div>
+  <div class="rightItem regularButton">
+    <a href="<%= url_for :action => :edit, :id => @account.object %>">Edit</a>
+  </div>
+</div>
+
+<div class="content">
+  <ul>
+    
+        <li>
+          <div class="itemLabel">Id</div>
+          <div class="itemValue"><%= @account.Id %></div>
+        </li>
+		<li>
+          <div class="itemLabel">Name</div>
+          <div class="itemValue"><%= @account.Name %></div>
+        </li>
+    
+  </ul>
+</div>

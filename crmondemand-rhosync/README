@@ -1,0 +1,20 @@
+1. After installation of the OracleCRM OnDemand Rhosync application:
+   - create file 'settings/settings.yml' from the default 'settings/settings.template.yml'
+   - if you want to run RSpec, modify 'settings/settings.yml' 
+     to provide your real Oracle CRM account's username and password 
+
+2. File 'settings/crmobjects.yml' contains descriptions for the Oracle CRM objects.
+   - Each of the sources has the following entries:
+      Query_Fields: array of the objects's fields (each field's element is an array itself) , containing the following data:
+        - - <field_name> - 1st element of the field's subarray indicating the object's field name
+          - <field_value> - 2nd element of the field's subarray , containing the field's options (as a Hash):
+              Label => <val> - display name of the field
+              Type => <val> - type of the field data (textinput, textarea, Picklist, etc.)
+      NonQuery_MappingWS_Fields: object's fields that can not be used in Queries (however, Oracle returns them in GetMapping API)
+      StaticPickList: Normally, all picklist fields are queried for the allowed values using GetPicklistValues API
+                      However, for certain fields OracleCRM API returns an error 'not a valid picklist'
+                      This entry is a workaround for this error - fields's picklist values are statically hard-coded here.
+
+      ObjectFields: this one specifies a hash of fields that are actually references to other objects. 
+         For example, AccountName field for Contact object is really a reference to the corresponding Account object.
+

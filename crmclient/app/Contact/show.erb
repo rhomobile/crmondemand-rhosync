@@ -1,0 +1,23 @@
+<div class="pageTitle">
+  <h1><%= @contact.Contact_id %></h1>
+</div>
+
+<div class="toolbar">
+  <div class="leftItem backButton">
+    <a href="<%= url_for :action => :index %>">Back</a>
+  </div>
+  <div class="rightItem regularButton">
+    <a href="<%= url_for :action => :edit, :id => @contact.object %>">Edit</a>
+  </div>
+</div>
+
+<div class="content">
+  <ul>
+    
+        <li>
+          <div class="itemLabel">Id</div>
+          <div class="itemValue"><%= @contact.Id %></div>
+        </li>
+    
+  </ul>
+</div>

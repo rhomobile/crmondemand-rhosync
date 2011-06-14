@@ -1,0 +1,21 @@
+<div id="pageTitle">
+	<h1><%= @opportunity.Opportunity_Id%></h1>
+</div>
+
+<div id="toolbar">
+        <%= link_to "Back", :action => :index %>
+        <%= link_to "Edit", :action => :edit, :id => @opportunity.object %>
+</div>
+
+
+<div id="content">
+
+    <table>
+      
+      <tr>
+    	<td class="itemLabel">OpportunityId</td>
+        <td class="itemValue"><%= @opportunity.Opportunity_Id%></td>
+      </tr>
+      
+    </table>
+</div>

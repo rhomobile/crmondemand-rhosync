@@ -1,0 +1,4 @@
+settings/settings.yml
+coverage
+*.rdb
+sources/*.old.rb

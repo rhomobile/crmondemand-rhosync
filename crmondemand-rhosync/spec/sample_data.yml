@@ -1,0 +1,42 @@
+Contact:
+  MrMrs: Mr.
+  ContactFirstName: John
+  ContactLastName: Smith
+  Age: 25
+  ContactEmail: john.smith@example.com
+  WorkPhone: (555)555-5555
+  CellularPhone: (555)111-1111
+Account:
+  AccountName: ACME Co.
+  AccountType: Partner
+  Priority: High
+  MainPhone: (333)-333-3333
+  WebSite: www.acme.com
+  NumberEmployees: 100
+  AnnualRevenues: 500000
+Opportunity:
+  OpportunityName: 600 Hard Drives
+  ExpectedRevenue: 5000
+  Probability: 85%
+  SalesStage: Negotiation
+  Priority: High
+Lead:
+  MrMrs: Mr.
+  LeadFirstName: John
+  LeadLastName: Smith
+  CellularPhone: (555)111-1111
+  Email: john.smith@example.com
+  Company: ABC Company
+  JobTitle: Sales Assistant
+  PotentialRevenue: $40000
+  EstimatedCloseDate: 5/15/2011
+  Country: USA
+  Province: CA
+  City: San Francisco
+  StreetAddress: 111 Market St.
+Activity:
+  Activity: Appointment
+  Subject: See the sales rep at 5pm
+  Type: Presentation
+  Location: ACME Co.
+  Duration: 30
