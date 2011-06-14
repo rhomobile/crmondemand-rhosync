@@ -1,5 +1,0 @@
-1. After installation of the OracleCRM OnDemand Rhosync application:
-   - create file 'settings/settings.yml' from the default 'settings/settings.template.yml'
-   - if you want to run RSpec, modify 'settings/settings.yml' 
-     to provide your real Oracle CRM account's username and password 
-
