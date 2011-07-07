@@ -10,7 +10,7 @@
 
 <div class="content">
   <form method="POST" action="<%= @doc_def['object'] %>/create">
-    <input type="hidden" name="id" value="@<%=@doc_def["model"]%>.object %>"/>
+    <input type="hidden" name="id" value="@<%=@doc_def["model"]%>.object"/>
     
 	<%@content.each_line do |line|%><%= "  " + line%><%end%>
 
