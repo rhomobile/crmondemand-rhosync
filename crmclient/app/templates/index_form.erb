@@ -1,0 +1,18 @@
+<div class="pageTitle">
+  <h1><%= @doc_def["title"] %></h1>
+</div>
+
+<div class="toolbar">
+  <div class="leftItem backButton">
+	<a class="cancel" href="/app">Home</a>
+  </div>
+  <div class="rightItem regularButton">
+	<a class="button" href="<%=@doc_def["object"]%>/new">New</a>
+  </div>
+</div>
+
+<div class="content">
+  <ul>
+	<%@content.each_line do |line|%><%= "  " + line%><%end%>
+  </ul>
+</div>

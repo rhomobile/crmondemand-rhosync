@@ -4,7 +4,7 @@ class Activity
   include Rhom::PropertyBag
 
   # Uncomment the following line to enable sync with Activity.
-  enable :sync
+  #enable :sync
 
   #add model specifc code here
 end
