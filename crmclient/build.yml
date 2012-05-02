@@ -1,23 +1,22 @@
 --- 
-extensions: 
-- json
-- rhodes_translator
 name: crmclient
+extensions: 
+- rhodes_translator
+bbver: 4.6
 wp: 
   productid: 1e9f3c80-737f-012e-9bec-60f84714f3cc
-bbver: 4.6
-sdk: /Library/Ruby/Gems/1.8/gems/rhodes-3.0.2
-applog: rholog.txt
+sdk: /Users/mzverev/.rvm/gems/ruby-1.8.7-p352/gems/rhodes-3.3.2
 build: debug
-wmsdk: Windows Mobile 6 Professional SDK (ARMV4I)
+applog: rholog.txt
 version: 1.0
-vendor: rhomobile
+wmsdk: Windows Mobile 6 Professional SDK (ARMV4I)
 sdkversion: 3.0.0
+vendor: rhomobile
 iphone: 
-  BundleURLScheme: crmclient
   provisionprofile: 
+  BundleURLScheme: crmclient
   BundleIdentifier: com.rhomobile.crmclient
   sdk: iphonesimulator4.3
-  entitlements: 
   codesignidentity: 
+  entitlements: 
   configuration: Debug

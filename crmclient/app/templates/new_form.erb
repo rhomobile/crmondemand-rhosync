@@ -4,12 +4,12 @@
 
 <div class="toolbar">
   <div class="leftItem backButton">
-    	<a class="cancel" href="<%= @doc_def["object"] %>/index">Cancel</a>
+    	<a class="cancel" href="/app/<%= @doc_def["object"] %>/index">Cancel</a>
   </div>
 </div>
 
 <div class="content">
-  <form method="POST" action="<%= @doc_def['object'] %>/create">
+  <form method="POST" action="/app/<%= @doc_def['object'] %>/create">
     <input type="hidden" name="id" value="@<%=@doc_def["model"]%>.object"/>
     
 	<%@content.each_line do |line|%><%= "  " + line%><%end%>
